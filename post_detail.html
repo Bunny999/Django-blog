@@ -1,0 +1,28 @@
+{% extends 'news/base.html' %} {% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 card mb-4  mt-3 left  top">
+      <div class="card-body">
+        <h1>{% block title %} {{ object.title }} {% endblock title %}</h1>
+        <p class=" text-muted">{{ post.author }} | {{ post.created_on }}</p>
+        <p class="card-text ">{{ object.message | safe }}</p>
+      </div>
+
+    </div>
+    {% block sidebar %} {% endblock sidebar %}
+  </div>
+</div>
+
+     {% for comment in post.comments.all %}
+         <div class="comment">
+             <div class="date">{{ comment.created_on }}</div>
+                 <strong>{{ comment.user  }}</strong>
+                 <p>{{ comment.body|linebreaks }}</p>
+        </div>
+        {% empty %}
+        <p>No comments here yet :(</p>
+      {% endfor %}
+
+
+{% endblock content %}
